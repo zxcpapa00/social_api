@@ -1,4 +1,17 @@
 manage.py
 .idea
+db.sqlite3
+__pychache__/
+media/
 
 social_api/__init__.py
+social_api/__pycache__/
+
+content/migrations
+content/__init__.py
+content/__pycache__/
+
+accounts/migrations
+accounts/__init__.py
+accounts/__pycache__/
+
