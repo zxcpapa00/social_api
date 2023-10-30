@@ -7,5 +7,10 @@ class Profile(models.Model):
     image = models.ImageField(upload_to='user_images/', default='user_images/default/default-avatar-profile.jpg')
     description = models.TextField()
 
+    def __str__(self):
+        return self.user.username
+
+
+
 
 
