@@ -13,9 +13,10 @@ from content.serializers import (PostListSerializer, PostCreateSerializer,
 class PostsAPIView(generics.ListAPIView):
     queryset = Post.objects.filter(draft=False)
     serializer_class = PostListSerializer
-    filter_backends = [filters.OrderingFilter, rest_framework.DjangoFilterBackend]
+    filter_backends = [filters.OrderingFilter, rest_framework.DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['author']
     ordering_fields = ['date_create']
+    search_fields = ['title', 'body', 'author__username']
 
     def get_queryset(self):
         queryset = self.queryset
