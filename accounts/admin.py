@@ -9,7 +9,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Friend)
 class FriendAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['id', 'user', 'friend']
 
 
 @admin.register(Group)

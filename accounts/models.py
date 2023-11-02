@@ -12,8 +12,8 @@ class Profile(models.Model):
 
 
 class Friend(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='my_friends')
-    friend = models.OneToOneField(User, on_delete=models.CASCADE, related_name='friends')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='friends')
+    friend = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.friend} friend for {self.user}'
@@ -28,7 +28,7 @@ class Group(models.Model):
 
 class GroupMember(models.Model):
     group = models.ForeignKey(to=Group, on_delete=models.CASCADE, related_name='members')
-    member = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    member = models.ForeignKey(to=User, on_delete=models.CASCADE)
     is_admin = models.BooleanField(default=False)
 
     def __str__(self):

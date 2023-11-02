@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (ProfileAPIView, FriendCreateAPIView, FriendDeleteAPIView,
                     AllProfilesAPIView, CreateGroupAPIView, AddMemberAPIView,
-                    GroupListAPIView,)
+                    GroupListAPIView, GroupMemberDeleteAPIView)
 
 urlpatterns = [
     path('profile/', ProfileAPIView.as_view()),
@@ -10,5 +10,6 @@ urlpatterns = [
     path('delete-friend/<int:pk>', FriendDeleteAPIView.as_view()),
     path('create-group/', CreateGroupAPIView.as_view()),
     path('add-member-in-group/', AddMemberAPIView.as_view()),
+    path('delete-member-on-group/<int:pk>', GroupMemberDeleteAPIView.as_view()),
     path('groups/', GroupListAPIView.as_view())
 ]

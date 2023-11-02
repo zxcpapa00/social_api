@@ -20,7 +20,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source='user.last_name', read_only=True)
     email = serializers.CharField(source='user.email', read_only=True)
     total_friends = serializers.IntegerField()
-    friends = FriendSerializer(many=True, read_only=True, source='user.my_friends')
+    friends = FriendSerializer(many=True, read_only=True, source='user.friends')
 
     class Meta:
         model = Profile
@@ -51,7 +51,7 @@ class GroupCreateSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    members = GroupMemberSerializer(many=True)
+    members = GroupMemberSerializer(many=True, read_only=True)
 
     class Meta:
         model = Group
