@@ -1,9 +1,10 @@
 from django.urls import path
 from .views import (ProfileAPIView, FriendCreateAPIView, FriendDeleteAPIView,
                     AllProfilesAPIView, CreateGroupAPIView, AddMemberAPIView,
-                    GroupListAPIView, GroupMemberDeleteAPIView)
+                    GroupListAPIView, GroupMemberDeleteAPIView, verify)
 
 urlpatterns = [
+    path('verify/<uuid>', verify, name='verify'),
     path('profile/', ProfileAPIView.as_view()),
     path('all-profile/', AllProfilesAPIView.as_view()),
     path('add-friend/', FriendCreateAPIView.as_view()),

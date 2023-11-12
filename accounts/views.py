@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
 from django.db.models import Count, F
+from django.http import Http404
+from django.shortcuts import render
 from rest_framework import generics, status, filters
 from rest_framework.response import Response
 
-from .models import Profile, Friend, Group, GroupMember
+from .models import Profile, Friend, Group, GroupMember, User
 from .serializers import (ProfileSerializer, FriendSerializer, AllProfileSerializer,
                           GroupCreateSerializer, GroupMemberSerializer, GroupSerializer)
 
@@ -95,3 +96,14 @@ class GroupListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(members__member__in=[self.request.user])
+
+
+def verify(request, uuid):
+    try:
+        user = User.objects.get(verification_uuid=uuid, is_verified=False)
+    except User.DoesNotExist:
+        raise Http404("User does not exist or is already verified")
+
+    user.is_verified = True
+    user.save()
+    return render(request, 'activate.html')

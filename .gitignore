@@ -4,6 +4,7 @@ db.sqlite3
 __pychache__/
 media/
 venv/
+templates/
 
 social_api/__init__.py
 social_api/__pycache__/
