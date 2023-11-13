@@ -23,3 +23,4 @@ def create_friend(sender, instance, created, **kwargs):
 def user_post_save(sender, instance, created, **kwargs):
     if not instance.is_verified:
         send_verification_email.delay(instance.pk)
+

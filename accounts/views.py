@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from .models import Profile, Friend, Group, GroupMember, User
 from .serializers import (ProfileSerializer, FriendSerializer, AllProfileSerializer,
                           GroupCreateSerializer, GroupMemberSerializer, GroupSerializer)
+from .tasks import send_group_notification
 
 
 class ProfileAPIView(generics.ListAPIView):
@@ -77,6 +78,7 @@ class AddMemberAPIView(generics.CreateAPIView):
 
         if not in_group:
             if admin == request.user:
+                send_group_notification.delay(member, admin.pk, group.first().name)
                 return super().create(request, *args, **kwargs)
             return Response({'detail': 'You are not a admin'}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'detail': 'He is already in group'}, status=status.HTTP_400_BAD_REQUEST)

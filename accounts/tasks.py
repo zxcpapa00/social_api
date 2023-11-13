@@ -35,3 +35,19 @@ def send_friend_notification(user_id, friend_id):
         [user.email],
         fail_silently=False,
     )
+
+
+@app.task
+def send_group_notification(user_id, admin_id, group_name):
+    UserModel = get_user_model()
+
+    user = UserModel.objects.get(pk=user_id)
+    admin = UserModel.objects.get(pk=admin_id)
+
+    send_mail(
+        'Add in group',
+        f'{admin} add you in group: {group_name}',
+        'zxcpapa00@gmail.com',
+        [user.email],
+        fail_silently=False,
+    )
