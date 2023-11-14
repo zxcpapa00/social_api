@@ -5,6 +5,7 @@ __pychache__/
 media/
 venv/
 templates/
+.env
 
 social_api/__init__.py
 social_api/__pycache__/

@@ -1,12 +1,16 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-82u(ib=p7^^g+l5(3ujqe)#v)v5ynbpbx%gscg@j@rl1qa8_t7'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-DEBUG = True
+DEBUG = str(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = str(os.getenv('ALLOWED_HOSTS')).split(' ')
+INTERNAL_IPS = str(os.getenv('INTERNAL_IPS')).split(' ')
 
 # Application definition
 
@@ -61,9 +65,10 @@ WSGI_APPLICATION = 'social_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'social_db',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS'),
     }
 }
 
@@ -123,11 +128,11 @@ REST_FRAMEWORK = {
 }
 
 # Gmail
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'zxcpapa00@gmail.com'
-EMAIL_HOST_PASSWORD = 'kkcfhtvgvmbcrxbt'
-EMAIL_PORT = 587
+EMAIL_USE_TLS = str(os.getenv('EMAIL_USE_TLS'))
+EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
+EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
+EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))
+EMAIL_PORT = str(os.getenv('EMAIL_PORT'))
 
 # Celery
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_BROKER_URL = str(os.getenv('CELERY_BROKER_URL'))
